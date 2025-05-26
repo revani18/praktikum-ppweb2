@@ -22,6 +22,33 @@ class AuthController extends Controller
             $user = User::where("email", $request->email)->first();
             Auth::login($user);
             return redirect('/');
+        }else {
+            return redirect()->back()->with("error", "login error");
         }
     }
+
+    public function register()
+    {
+        return view("register");
+    }
+
+    public function registerPost(Request $request)
+    {
+        $data = $request->validate([
+            "name" => "required|min:3|max:150",
+            "email" => "required",
+            "password" => "required",
+        ]);
+
+        User::create($data);
+
+        return redirect("/login");
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect(route('logout'));
+    }
+
 }

@@ -7,7 +7,15 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
-
+  
+  @if (Auth::user() != null)
+    <div class="w-[50%] mx-auto py-10">
+      {{ Auth::user()->name }} <br>
+      <a href="{{ route('logout')}}">logout</a>
+    </div>
+  @else
+  <meta http-equiv="refresh" content="0;url={{ route('login') }}" />
+  @endif
   <div class="w-[50%] mx-auto py-10">
     <!-- Textarea and Button -->
     <div class="bg-white p-6 rounded-xl shadow mb-8">
